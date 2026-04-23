@@ -70,31 +70,6 @@ plt.grid(axis='x', linestyle='--', alpha=0.6)
 plt.tight_layout()
 plt.savefig('ranking_final.png')
 
-# --- GRÁFICO 2: RADAR (DESEMPENHO POR CRITÉRIO) ---
-labels = list(df_norm.columns)
-num_vars = len(labels)
-top_labels = [ranking.index[0], ranking.index[1], 'Elegoo Saturn 4U']
-
-plt.figure(figsize=(8, 8))
-ax = plt.subplot(111, polar=True)
-angles = [n / float(num_vars) * 2 * pi for n in range(num_vars)]
-angles += angles[:1]
-
-for i, imp in enumerate(top_labels):
-    if imp in df_norm.index:
-        values = df_norm.loc[imp].tolist()
-        values += values[:1]
-        ax.plot(angles, values, linewidth=2, label=imp)
-        ax.fill(angles, values, alpha=0.1)
-
-ax.set_theta_offset(pi / 2)
-ax.set_theta_direction(-1)
-plt.xticks(angles[:-1], labels)
-plt.title('Perfil de Desempenho por Critério')
-plt.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1))
-plt.tight_layout()
-plt.savefig('radar_desempenho.png')
-
 # Exportar imagem para excel
 ranking.to_excel("resultado_ranking.xlsx")
 
